@@ -1,5 +1,6 @@
 from src.data.kaggle_loader import KaggleCSVLoader
 from src.data.data_validator import DataValidator
+from src.data.data_preprocessor import DataPreprocessor
 
 def main():
     loader = KaggleCSVLoader(
@@ -21,6 +22,14 @@ def main():
     validator = DataValidator(required_columns=dataset_columns)
     validator.validate_columns(df)
     validator.validate_missing_values(df)
+
+    # Generic Preprocessing
+    preprocessor = DataPreprocessor()
+    df_clean = preprocessor.clean(df)
+    preprocessor.convert_datetime(df_clean, ['Timestamp'])
+
+    # Saving to processed folder
+    preprocessor.save_processed(df_clean, "processed_smart_logistics_dataset.csv")
     
 if __name__ == '__main__':
     main()

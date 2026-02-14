@@ -46,3 +46,17 @@ class DataPreprocessor:
         )
         
         print(f"Processed dataset saved to {file_path}")
+
+    def prepare_for_routing(
+            self,
+            df: pd.DataFrame
+    ) -> pd.DataFrame:
+        
+        routing_df = df[[
+            'Latitude', 'Longitude', 'Demand_Forecast'
+        ]].copy()
+
+        routing_df = routing_df.dropna()
+        routing_df['Demand_Forecast'] = routing_df['Demand_Forecast'].astype('int')
+
+        return routing_df

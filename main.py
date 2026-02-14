@@ -26,7 +26,7 @@ def main():
     # Generic Preprocessing
     preprocessor = DataPreprocessor()
     df_clean = preprocessor.clean(df)
-    preprocessor.convert_datetime(df_clean, ['Timestamp'])
+    df_clean = preprocessor.convert_datetime(df_clean, ['Timestamp'])
 
     # Saving to processed folder
     preprocessor.save_processed(df_clean, "processed_smart_logistics_dataset.csv")

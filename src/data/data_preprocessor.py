@@ -57,6 +57,7 @@ class DataPreprocessor:
         ]].copy()
 
         routing_df = routing_df.dropna()
-        routing_df['Demand_Forecast'] = routing_df['Demand_Forecast'].astype('int')
+        routing_df['Demand_Forecast'] = routing_df['Demand_Forecast'].round().astype('int')
+        routing_df = routing_df.reset_index(drop=True)
 
         return routing_df

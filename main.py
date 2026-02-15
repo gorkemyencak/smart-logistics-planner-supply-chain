@@ -1,6 +1,7 @@
 from src.data.kaggle_loader import KaggleCSVLoader
 from src.data.data_validator import DataValidator
 from src.data.data_preprocessor import DataPreprocessor
+from src.optimization.clustering import NodeClusterer
 
 def main():
     loader = KaggleCSVLoader(
@@ -27,6 +28,14 @@ def main():
     preprocessor = DataPreprocessor()
     df_clean = preprocessor.clean(df)
     df_clean = preprocessor.convert_datetime(df_clean, ['Timestamp'])
+
+    routing_df = preprocessor.prepare_for_routing(df_clean)
+
+    # Node Clustering
+    clusterer = NodeClusterer(n_clusters=10)
+    routing_df = clusterer.fit_predict(routing_df)
+
+    print(routing_df['Cluster_ID'].value_counts().sort_index())
 
     # Saving to processed folder
     preprocessor.save_processed(df_clean, "processed_smart_logistics_dataset.csv")

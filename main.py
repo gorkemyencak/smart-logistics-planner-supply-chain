@@ -2,6 +2,7 @@ from src.data.kaggle_loader import KaggleCSVLoader
 from src.data.data_validator import DataValidator
 from src.data.data_preprocessor import DataPreprocessor
 from src.optimization.clustering import NodeClusterer
+from src.optimization.vrp_solver import VRPsolver
 
 def main():
     loader = KaggleCSVLoader(
@@ -31,14 +32,28 @@ def main():
 
     routing_df = preprocessor.prepare_for_routing(df_clean)
 
+    # Saving to processed folder
+    preprocessor.save_processed(df_clean, "processed_smart_logistics_dataset.csv")
+
     # Node Clustering
     clusterer = NodeClusterer(n_clusters=10)
     routing_df = clusterer.fit_predict(routing_df)
 
     print(routing_df['Cluster_ID'].value_counts().sort_index())
 
-    # Saving to processed folder
-    preprocessor.save_processed(df_clean, "processed_smart_logistics_dataset.csv")
+    # Solving VRP per Cluster
+    solver = VRPsolver(vehicle_capacity = 750)
+
+    for cluster_id in routing_df['Cluster_ID'].unique():
+        print(f"\n-- Solving Cluster {cluster_id} --")
+
+        cluster_data = routing_df[
+            routing_df['Cluster_ID'] == cluster_id
+        ].reset_index(drop=True)
+
+        routes = solver.solve_cluster(cluster_data)
+
+        print(f"Routes: {routes}")
     
 if __name__ == '__main__':
     main()

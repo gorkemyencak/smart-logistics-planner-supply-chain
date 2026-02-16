@@ -5,7 +5,7 @@ class NodeClusterer:
 
     def __init__(
             self, 
-            n_clusters: int = 3,
+            n_clusters: int,
             random_state: int = 7
     ):
         self.n_clusters = n_clusters

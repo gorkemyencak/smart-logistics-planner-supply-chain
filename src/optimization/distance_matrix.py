@@ -1,57 +1,32 @@
 import numpy as np
 import pandas as pd
+from math import radians, sin, cos, sqrt, atan2
 
 class DistanceMatrix:
 
-    def __init__(
-            self,
-            latitude_col: str,
-            longitude_col: str
-    ):
-        self.latitude_col = latitude_col
-        self.longitude_col = longitude_col
-    
-    def haversine(
-            self,
-            lat1,
-            lon1,
-            lat2,
-            lon2
-    ):
-        
-        R = 6371 # Earth radius in km
+   @staticmethod
+   def compute_euclidean(
+      df: pd.DataFrame
+   ) -> np.ndarray:
+      """ Computes full nxn Euclidean distance matrix """
 
-        lat1, lon1, lat2, lon2 = map(
-            np.radians, 
-            [lat1, lon1, lat2, lon2]
-        )
+      coordinates = df[['Latitude', 'Longitude']].copy().to_numpy()
 
-        dist_lat = lat2 - lat1
-        dist_lon = lon2 - lon1
+      diff = coordinates[:, np.newaxis, :] - coordinates[np.newaxis, :, :]
+      dist_matrix = np.sqrt(
+         (diff**2)
+         .sum(axis=2)
+      )
 
-        a = (
-            np.sin(dist_lat/2)**2 +
-            np.cos(lat1) * np.cos(lat2) * np.sin(dist_lon/2)**2
-        )
+      return dist_matrix
+   
+   @staticmethod
+   def compute_scaled(
+      df: pd.DataFrame,
+      scale_factor: int = 1000
+   ) -> np.ndarray:
+      """ Returns scaled integer distance matrix """
 
-        c = 2 * np.arcsin(np.sqrt(a))
-
-    def build_matrix(
-            self,
-            df: pd.DataFrame
-    ) -> np.ndarray:
-        
-        coordinates = df[[self.latitude_col, self.longitude_col]].values
-        n = len(coordinates)
-
-        matrix = np.zeros((n, n))
-
-        for i in range(n):
-            for j in range(n):
-                matrix[i][j] = self.haversine(
-                    coordinates[i][0], coordinates[i][1],
-                    coordinates[j][0], coordinates[j][1]
-                )
-        
-        return matrix
+      matrix = DistanceMatrix.compute_euclidean(df)
+      return (matrix * scale_factor).astype(int)
 

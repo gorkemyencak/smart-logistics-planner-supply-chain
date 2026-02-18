@@ -1,32 +1,35 @@
 import numpy as np
 import pandas as pd
-from math import radians, sin, cos, sqrt, atan2
+from src.optimization.cost_function import CostFunction
 
 class DistanceMatrix:
 
-   @staticmethod
-   def compute_euclidean(
-      df: pd.DataFrame
-   ) -> np.ndarray:
-      """ Computes full nxn Euclidean distance matrix """
+   def __init__(self):
+      self.cost_function = CostFunction()
 
-      coordinates = df[['Latitude', 'Longitude']].copy().to_numpy()
+   def build(
+         self,
+         cluster_df: pd.DataFrame
+   ):
+      
+      size = len(cluster_df)
+      matrix = [[0 for i in range(size)] for j in range(size)]
+ 
+      for i in range(size):
+         for j in range(size):
 
-      diff = coordinates[:, np.newaxis, :] - coordinates[np.newaxis, :, :]
-      dist_matrix = np.sqrt(
-         (diff**2)
-         .sum(axis=2)
-      )
+            if i == j:
+               matrix[i][j] = 0
+            else:
+               from_node = cluster_df.iloc[i]
+               to_node = cluster_df.iloc[j]
 
-      return dist_matrix
-   
-   @staticmethod
-   def compute_scaled(
-      df: pd.DataFrame,
-      scale_factor: int = 1000
-   ) -> np.ndarray:
-      """ Returns scaled integer distance matrix """
+               cost = self.cost_function.compute_cost(
+                  from_node,
+                  to_node
+               )
 
-      matrix = DistanceMatrix.compute_euclidean(df)
-      return (matrix * scale_factor).astype(int)
+               matrix[i][j] = int(cost)
+      
+      return matrix
 

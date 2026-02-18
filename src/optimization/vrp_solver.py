@@ -2,15 +2,16 @@ import math
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 from src.optimization.distance_matrix import DistanceMatrix
-from src.optimization.route_metrics import RouteMetrics
 
 class VRPsolver:
 
     def __init__(
             self, 
-            vehicle_capacity: int
+            vehicle_capacity: int,
+            vehicle_fixed_cost: int = 9999999 # penalizing unnecessary vehicles while maintaining the feasibility
     ):
         self.vehicle_capacity = vehicle_capacity
+        self.vehicle_fixed_cost = vehicle_fixed_cost
 
     def solve_cluster(
             self,
@@ -47,25 +48,24 @@ class VRPsolver:
             print(f"Infeasible capacity: max demand {max_demand} exceeds the fixed vehicle capacity {self.vehicle_capacity}")
             return None
 
-        # Dynamic vehicle count
+        # Dynamic vehicle count with tight vehicle count (No Slack!)
         base_vehicles = math.ceil(
             total_demand / self.vehicle_capacity
         )
 
-        # adding slack to vehicle number
-        num_vehicles = base_vehicles + 5
+        num_vehicles = math.ceil(base_vehicles * 1.05)
         
         # safety limit on vehicle numbers
         num_vehicles = min(
             num_vehicles,
-            len(cluster_df)
+            len(cluster_df) -1
         )
 
         print(f"Total cluster demand: {total_demand}")
-        print(f"Base vehicles: {base_vehicles}")
-        print(f"Vehicles used (with slack): {num_vehicles}")
+        print(f"Vehicles used (no slack): {num_vehicles}")
 
-        distance_matrix = DistanceMatrix.compute_scaled(cluster_df)
+        matrix_builder = DistanceMatrix()
+        distance_matrix = matrix_builder.build(cluster_df)
 
         # RoutingIndexManager manager(10, 4, starts_ends)
         manager = pywrapcp.RoutingIndexManager(
@@ -82,19 +82,23 @@ class VRPsolver:
                 to_index
         ):
             
-            from_node = manager.IndexToNode(from_index)
-            to_node = manager.IndexToNode(to_index)
-            return distance_matrix[from_node][to_node]
+            from_node = manager.IndexToNode(int(from_index))
+            to_node = manager.IndexToNode(int(to_index))
+            return int(distance_matrix[from_node][to_node])
         
         transit_callback_index = routing.RegisterTransitCallback(distance_callback)
         routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
-        # demand callback
+        # Adding fixed cost of vehicles -> penalty
+        for v in range(num_vehicles):
+            routing.SetFixedCostOfVehicle(cost=self.vehicle_fixed_cost, vehicle=v)
+
+        # Capacity constraint
         def demand_callback(
                 from_index
         ):
             
-            from_node = manager.IndexToNode(from_index)
+            from_node = manager.IndexToNode(int(from_index))
             return demands[from_node]
         
         demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
@@ -108,10 +112,11 @@ class VRPsolver:
             "Capacity"
         )
 
+        # Search parameters
         search_params = pywrapcp.DefaultRoutingSearchParameters()
         search_params.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
         search_params.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
-        search_params.time_limit.seconds = 30 # Hard stop - 30 secs per cluster
+        search_params.time_limit.seconds = 60 # Hard stop - 60 secs per cluster
 
         solution = routing.SolveWithParameters(search_params)
 
@@ -135,12 +140,12 @@ class VRPsolver:
     ):
         
         routes_data = []
-
-        distance_matrix = routing.GetArcCostForVehicle
         total_distance = 0
         total_load = 0
 
         capacity_dimension = routing.GetDimensionOrDie('Capacity')
+
+        vehicles_in_use = 0
 
         for vehicle_id in range(num_vehicles):
 
@@ -155,19 +160,20 @@ class VRPsolver:
                 previous_index = index
                 index = solution.Value(routing.NextVar(index))
 
-                if not routing.IsEnd(index):
-                    route_distance += routing.GetArcCostForVehicle(
-                        previous_index,
-                        index,
-                        vehicle_id
-                    )
+                route_distance += routing.GetArcCostForVehicle(
+                    previous_index,
+                    index,
+                    vehicle_id
+                )
             
             # Compute route load
             route_load = solution.Value(
                 capacity_dimension.CumulVar(previous_index)
             )
 
-            if len(route) > 1: #ignoring empty vehicles
+            if route_load > 0: 
+
+                vehicles_in_use += 1
 
                 utilization = 100 * (
                     route_load / self.vehicle_capacity
@@ -185,10 +191,11 @@ class VRPsolver:
                 total_load += route_load
         
         fleet_utilization = 100 * (
-            total_load / (num_vehicles * self.vehicle_capacity)
+            total_load / (vehicles_in_use * self.vehicle_capacity)
         )
 
-        print(f"\nCluster Total Distance: {total_distance}")
+        print(f"\nVehicles in Use: {vehicles_in_use}")
+        print(f"Cluster Total Distance: {total_distance}")
         print(f"Fleet Utilization: {round(fleet_utilization, 2)}%\n")
 
         return routes_data

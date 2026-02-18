@@ -37,7 +37,10 @@ def main():
     preprocessor.save_processed(df_clean, "processed_smart_logistics_dataset.csv")
 
     # Node Clustering
-    clusterer = DemandAwareClusterer(n_clusters=10)
+    clusterer = DemandAwareClusterer(
+        vehicle_capacity = 750,
+        target_vehicles_per_cluster = 15
+    )
     routing_df = clusterer.cluster(routing_df)
 
     print("\nCluster Distribution")
@@ -62,3 +65,9 @@ def main():
     
 if __name__ == '__main__':
     main()
+
+    # phase 1: demand aware clustering
+    # phase 2: smart vehicle allocation
+    # phase 3: metaheuristic tuning
+    # phase 4: cost modeling
+    # phase 5: visualization dashboard

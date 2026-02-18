@@ -53,7 +53,7 @@ class DataPreprocessor:
     ) -> pd.DataFrame:
         
         routing_df = df[[
-            'Latitude', 'Longitude', 'Demand_Forecast'
+            'Latitude', 'Longitude', 'Demand_Forecast', 'Traffic_Status', 'Waiting_Time'
         ]].copy()
 
         routing_df = routing_df.dropna()

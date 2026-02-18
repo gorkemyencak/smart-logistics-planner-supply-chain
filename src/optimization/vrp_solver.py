@@ -79,7 +79,11 @@ class VRPsolver:
         depot_row = {
             'Latitude': depot_lat,
             'Longitude': depot_lon,
-            'Demand_Forecast': 0
+            'Demand_Forecast': 0,
+            'Traffic_Status': 'Clear',
+            'Waiting_Time': 0,
+            'Traffic_Encoded': 1,
+            'Cluster_ID': -1
         }
 
         cluster_df = cluster_df.copy().reset_index(drop=True)

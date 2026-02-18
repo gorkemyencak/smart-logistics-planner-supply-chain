@@ -3,7 +3,8 @@ from src.data.data_validator import DataValidator
 from src.data.data_preprocessor import DataPreprocessor
 from src.optimization.vrp_solver import VRPsolver
 from src.optimization.performance_analyzer import PerformanceAnalyzer
-from src.clustering.demand_aware_clusterer import DemandAwareClusterer
+#from src.clustering.demand_aware_clusterer import DemandAwareClusterer
+from src.clustering.traffic_aware_clusterer import TrafficAwareClusterer
 
 def main(): 
     loader = KaggleCSVLoader(
@@ -37,14 +38,22 @@ def main():
     preprocessor.save_processed(df_clean, "processed_smart_logistics_dataset.csv")
 
     # Node Clustering
+    """
     clusterer = DemandAwareClusterer(
         vehicle_capacity = 750,
         target_vehicles_per_cluster = 15
     )
+    """
+
+    clusterer = TrafficAwareClusterer(
+        vehicle_capacity = 750,
+        target_vehicles_per_cluster = 15
+    )
+
     routing_df = clusterer.cluster(routing_df)
 
-    print("\nCluster Distribution")
-    print(routing_df['Cluster_ID'].value_counts().sort_index())
+    print("\nNaN check after clustering:")
+    print(routing_df.isna().sum())
 
     # Solving VRP per Cluster
     solver = VRPsolver(vehicle_capacity = 750)

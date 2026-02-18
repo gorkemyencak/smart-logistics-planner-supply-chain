@@ -56,7 +56,7 @@ def main():
             routing_df['Cluster_ID'] == cluster_id
         ].reset_index(drop=True)
 
-        routes = solver.solve_cluster(cluster_data)
+        routes = solver.solve_with_vehicle_reduction(cluster_data)
 
         if routes:
             PerformanceAnalyzer.analyze_cluster(routes)

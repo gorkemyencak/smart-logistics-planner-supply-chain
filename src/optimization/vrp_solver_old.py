@@ -175,7 +175,7 @@ class VRPsolver:
         search_params = pywrapcp.DefaultRoutingSearchParameters()
         search_params.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
         search_params.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
-        search_params.time_limit.seconds = 30 # Hard stop - 30 secs per cluster
+        search_params.time_limit.seconds = 15 # Hard stop - 60 secs per cluster
 
         solution = routing.SolveWithParameters(search_parameters = search_params)
 
@@ -184,8 +184,7 @@ class VRPsolver:
                 solution,
                 routing,
                 manager,
-                num_vehicles,
-                demands
+                num_vehicles
             )
 
             return {
@@ -197,19 +196,22 @@ class VRPsolver:
             return {'feasible': False}
         
         
+    
     ### Route Extraction
     def _extract_routes(
             self,
             solution,
             routing,
             manager,
-            num_vehicles,
-            demands
+            num_vehicles
     ):
         
         routes_data = []
         total_distance = 0
         total_load = 0
+
+        capacity_dimension = routing.GetDimensionOrDie('Capacity')
+
         vehicles_in_use = 0
 
         for vehicle_id in range(num_vehicles):
@@ -217,13 +219,10 @@ class VRPsolver:
             index = routing.Start(vehicle_id)
             route = []
             route_distance = 0
-            route_load = 0
 
             while not routing.IsEnd(index):
                 node = manager.IndexToNode(index)
                 route.append(node)
-
-                route_load += demands[node]
 
                 previous_index = index
                 index = solution.Value(routing.NextVar(index))
@@ -233,6 +232,8 @@ class VRPsolver:
                     to_index = index,
                     vehicle = vehicle_id
                 )
+
+            route_load = solution.Value(capacity_dimension.CumulVar(previous_index))
 
             if route_load > 0:
                 

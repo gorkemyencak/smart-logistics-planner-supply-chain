@@ -7,6 +7,7 @@ from src.optimization.performance_analyzer import PerformanceAnalyzer
 #from src.clustering.demand_aware_clusterer import DemandAwareClusterer
 from src.clustering.traffic_aware_clusterer import TrafficAwareClusterer
 from src.utils.route_io import save_routes
+from src.utils.artifact_io import save_cluster_artifact
 
 def main(): 
     loader = KaggleCSVLoader(
@@ -78,10 +79,20 @@ def main():
         routes = solver.solve_with_vehicle_reduction(cluster_data)
 
         if routes:
-            PerformanceAnalyzer.analyze_cluster(routes)
+            metrics = PerformanceAnalyzer.analyze_cluster(routes)
 
             # saving routes into destination
             save_routes(routes = routes, cluster_id = cluster_id)
+
+            # save artifact
+            save_cluster_artifact(
+                cluster_id = cluster_id,
+                routes = routes,
+                metrics = metrics,
+                solver_meta = {
+                    'vehicle_capacity': solver.vehicle_capacity
+                }
+            )
 
         print(f"Routes: {routes}")
     

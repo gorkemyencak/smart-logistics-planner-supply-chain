@@ -1,0 +1,315 @@
+{
+  "cluster_id": 0,
+  "routes": [
+    {
+      "vehicle_id": 0,
+      "stops": [
+        72,
+        66,
+        53,
+        12
+      ],
+      "distance": 10380370,
+      "load": 729,
+      "utilization_%": 97.2
+    },
+    {
+      "vehicle_id": 1,
+      "stops": [
+        72,
+        38,
+        13,
+        28
+      ],
+      "distance": 10430506,
+      "load": 749,
+      "utilization_%": 99.87
+    },
+    {
+      "vehicle_id": 2,
+      "stops": [
+        72,
+        47,
+        68,
+        6
+      ],
+      "distance": 10384819,
+      "load": 727,
+      "utilization_%": 96.93
+    },
+    {
+      "vehicle_id": 3,
+      "stops": [
+        72,
+        26,
+        60,
+        31
+      ],
+      "distance": 10436012,
+      "load": 743,
+      "utilization_%": 99.07
+    },
+    {
+      "vehicle_id": 4,
+      "stops": [
+        72,
+        40,
+        57,
+        44
+      ],
+      "distance": 10425532,
+      "load": 746,
+      "utilization_%": 99.47
+    },
+    {
+      "vehicle_id": 5,
+      "stops": [
+        72,
+        59,
+        39,
+        41
+      ],
+      "distance": 10440240,
+      "load": 744,
+      "utilization_%": 99.2
+    },
+    {
+      "vehicle_id": 6,
+      "stops": [
+        72,
+        64,
+        43,
+        2
+      ],
+      "distance": 10221580,
+      "load": 731,
+      "utilization_%": 97.47
+    },
+    {
+      "vehicle_id": 7,
+      "stops": [
+        72,
+        22,
+        14,
+        19
+      ],
+      "distance": 10277558,
+      "load": 750,
+      "utilization_%": 100.0
+    },
+    {
+      "vehicle_id": 8,
+      "stops": [
+        72,
+        15,
+        1,
+        3
+      ],
+      "distance": 10188491,
+      "load": 739,
+      "utilization_%": 98.53
+    },
+    {
+      "vehicle_id": 9,
+      "stops": [
+        72,
+        9,
+        4,
+        58
+      ],
+      "distance": 10401258,
+      "load": 737,
+      "utilization_%": 98.27
+    },
+    {
+      "vehicle_id": 10,
+      "stops": [
+        72,
+        11,
+        0,
+        30
+      ],
+      "distance": 10340741,
+      "load": 744,
+      "utilization_%": 99.2
+    },
+    {
+      "vehicle_id": 11,
+      "stops": [
+        72,
+        20,
+        45
+      ],
+      "distance": 10222843,
+      "load": 593,
+      "utilization_%": 79.07
+    },
+    {
+      "vehicle_id": 12,
+      "stops": [
+        72,
+        61,
+        42,
+        18
+      ],
+      "distance": 10497846,
+      "load": 746,
+      "utilization_%": 99.47
+    },
+    {
+      "vehicle_id": 13,
+      "stops": [
+        72,
+        7,
+        55,
+        71
+      ],
+      "distance": 10343177,
+      "load": 725,
+      "utilization_%": 96.67
+    },
+    {
+      "vehicle_id": 14,
+      "stops": [
+        72,
+        36,
+        17,
+        35
+      ],
+      "distance": 10165978,
+      "load": 726,
+      "utilization_%": 96.8
+    },
+    {
+      "vehicle_id": 16,
+      "stops": [
+        72,
+        34,
+        25,
+        52
+      ],
+      "distance": 10277162,
+      "load": 722,
+      "utilization_%": 96.27
+    },
+    {
+      "vehicle_id": 17,
+      "stops": [
+        72,
+        10,
+        50,
+        33
+      ],
+      "distance": 10291528,
+      "load": 683,
+      "utilization_%": 91.07
+    },
+    {
+      "vehicle_id": 18,
+      "stops": [
+        72,
+        27,
+        46
+      ],
+      "distance": 10116506,
+      "load": 559,
+      "utilization_%": 74.53
+    },
+    {
+      "vehicle_id": 19,
+      "stops": [
+        72,
+        32,
+        16,
+        69
+      ],
+      "distance": 10292809,
+      "load": 705,
+      "utilization_%": 94.0
+    },
+    {
+      "vehicle_id": 20,
+      "stops": [
+        72,
+        21,
+        49,
+        48
+      ],
+      "distance": 10194299,
+      "load": 699,
+      "utilization_%": 93.2
+    },
+    {
+      "vehicle_id": 21,
+      "stops": [
+        72,
+        29,
+        37,
+        67
+      ],
+      "distance": 10292741,
+      "load": 744,
+      "utilization_%": 99.2
+    },
+    {
+      "vehicle_id": 22,
+      "stops": [
+        72,
+        56,
+        51
+      ],
+      "distance": 10323382,
+      "load": 555,
+      "utilization_%": 74.0
+    },
+    {
+      "vehicle_id": 23,
+      "stops": [
+        72,
+        63,
+        70,
+        8
+      ],
+      "distance": 10231450,
+      "load": 739,
+      "utilization_%": 98.53
+    },
+    {
+      "vehicle_id": 24,
+      "stops": [
+        72,
+        24,
+        54,
+        62
+      ],
+      "distance": 10221630,
+      "load": 749,
+      "utilization_%": 99.87
+    },
+    {
+      "vehicle_id": 25,
+      "stops": [
+        72,
+        5,
+        65,
+        23
+      ],
+      "distance": 10132384,
+      "load": 703,
+      "utilization_%": 93.73
+    }
+  ],
+  "metrics": {
+    "n_routes": 25,
+    "avg": 94.8648,
+    "min": 74.0,
+    "max": 100.0,
+    "std": 7.414659598390206,
+    "under_50_count": 0,
+    "total_load": 17787.0,
+    "total_distance": 257530842.0
+  },
+  "solver_meta": {
+    "vehicle_capacity": 750
+  }
+}

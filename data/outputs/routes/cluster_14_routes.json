@@ -1,0 +1,179 @@
+[
+  {
+    "vehicle_id": 0,
+    "stops": [
+      60,
+      31,
+      20,
+      28,
+      29,
+      0
+    ],
+    "distance": 10248838,
+    "load": 749,
+    "utilization_%": 99.87
+  },
+  {
+    "vehicle_id": 1,
+    "stops": [
+      60,
+      41,
+      23,
+      58,
+      3,
+      7
+    ],
+    "distance": 10265764,
+    "load": 746,
+    "utilization_%": 99.47
+  },
+  {
+    "vehicle_id": 2,
+    "stops": [
+      60,
+      53,
+      44,
+      18,
+      36
+    ],
+    "distance": 10224370,
+    "load": 710,
+    "utilization_%": 94.67
+  },
+  {
+    "vehicle_id": 3,
+    "stops": [
+      60,
+      50,
+      42,
+      4,
+      26,
+      39
+    ],
+    "distance": 10342945,
+    "load": 750,
+    "utilization_%": 100.0
+  },
+  {
+    "vehicle_id": 4,
+    "stops": [
+      60,
+      55,
+      1,
+      14,
+      13
+    ],
+    "distance": 10360079,
+    "load": 746,
+    "utilization_%": 99.47
+  },
+  {
+    "vehicle_id": 5,
+    "stops": [
+      60,
+      38,
+      49,
+      52,
+      17,
+      25
+    ],
+    "distance": 10336747,
+    "load": 748,
+    "utilization_%": 99.73
+  },
+  {
+    "vehicle_id": 6,
+    "stops": [
+      60,
+      40,
+      46,
+      56,
+      33,
+      6
+    ],
+    "distance": 10191868,
+    "load": 748,
+    "utilization_%": 99.73
+  },
+  {
+    "vehicle_id": 7,
+    "stops": [
+      60,
+      5,
+      12,
+      22,
+      15,
+      37
+    ],
+    "distance": 10227917,
+    "load": 710,
+    "utilization_%": 94.67
+  },
+  {
+    "vehicle_id": 8,
+    "stops": [
+      60,
+      9,
+      43,
+      2,
+      19
+    ],
+    "distance": 10234356,
+    "load": 716,
+    "utilization_%": 95.47
+  },
+  {
+    "vehicle_id": 10,
+    "stops": [
+      60,
+      8,
+      59,
+      45,
+      10,
+      57
+    ],
+    "distance": 10322803,
+    "load": 745,
+    "utilization_%": 99.33
+  },
+  {
+    "vehicle_id": 11,
+    "stops": [
+      60,
+      35,
+      21,
+      47,
+      32
+    ],
+    "distance": 10272024,
+    "load": 728,
+    "utilization_%": 97.07
+  },
+  {
+    "vehicle_id": 12,
+    "stops": [
+      60,
+      51,
+      54,
+      16,
+      34,
+      30
+    ],
+    "distance": 10412383,
+    "load": 750,
+    "utilization_%": 100.0
+  },
+  {
+    "vehicle_id": 13,
+    "stops": [
+      60,
+      48,
+      24,
+      11,
+      27
+    ],
+    "distance": 10420814,
+    "load": 670,
+    "utilization_%": 89.33
+  }
+]

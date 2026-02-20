@@ -1,3 +1,4 @@
+import os
 from src.data.kaggle_loader import KaggleCSVLoader
 from src.data.data_validator import DataValidator
 from src.data.data_preprocessor import DataPreprocessor
@@ -5,6 +6,7 @@ from src.optimization.vrp_solver import VRPsolver
 from src.optimization.performance_analyzer import PerformanceAnalyzer
 #from src.clustering.demand_aware_clusterer import DemandAwareClusterer
 from src.clustering.traffic_aware_clusterer import TrafficAwareClusterer
+from src.utils.route_io import save_routes
 
 def main(): 
     loader = KaggleCSVLoader(
@@ -55,6 +57,14 @@ def main():
     print("\nNaN check after clustering:")
     print(routing_df.isna().sum())
 
+    # Saving clustered dataframe into final folder
+    os.makedirs("data/final", exist_ok = True)
+
+    routing_df.to_csv(
+        "data/final/smart_logistics_dataset_with_clusters.csv",
+        index = False
+    )
+
     # Solving VRP per Cluster
     solver = VRPsolver(vehicle_capacity = 750)
 
@@ -69,6 +79,9 @@ def main():
 
         if routes:
             PerformanceAnalyzer.analyze_cluster(routes)
+
+            # saving routes into destination
+            save_routes(routes = routes, cluster_id = cluster_id)
 
         print(f"Routes: {routes}")
     

@@ -1,0 +1,159 @@
+[
+  {
+    "vehicle_id": 0,
+    "stops": [
+      58,
+      34,
+      43,
+      15,
+      7,
+      53
+    ],
+    "distance": 10263003,
+    "load": 647,
+    "utilization_%": 86.27
+  },
+  {
+    "vehicle_id": 1,
+    "stops": [
+      58,
+      31,
+      18,
+      35,
+      52,
+      48
+    ],
+    "distance": 10341963,
+    "load": 713,
+    "utilization_%": 95.07
+  },
+  {
+    "vehicle_id": 2,
+    "stops": [
+      58,
+      57,
+      41,
+      49,
+      26,
+      32
+    ],
+    "distance": 10395390,
+    "load": 719,
+    "utilization_%": 95.87
+  },
+  {
+    "vehicle_id": 3,
+    "stops": [
+      58,
+      9,
+      36,
+      44,
+      8,
+      42
+    ],
+    "distance": 10441346,
+    "load": 666,
+    "utilization_%": 88.8
+  },
+  {
+    "vehicle_id": 4,
+    "stops": [
+      58,
+      38,
+      54,
+      50,
+      13,
+      21
+    ],
+    "distance": 10229578,
+    "load": 712,
+    "utilization_%": 94.93
+  },
+  {
+    "vehicle_id": 5,
+    "stops": [
+      58,
+      10,
+      47,
+      23,
+      6,
+      37,
+      40
+    ],
+    "distance": 10303484,
+    "load": 744,
+    "utilization_%": 99.2
+  },
+  {
+    "vehicle_id": 6,
+    "stops": [
+      58,
+      56,
+      0,
+      4,
+      29,
+      46,
+      27
+    ],
+    "distance": 10523521,
+    "load": 743,
+    "utilization_%": 99.07
+  },
+  {
+    "vehicle_id": 7,
+    "stops": [
+      58,
+      14,
+      1,
+      51,
+      16,
+      2
+    ],
+    "distance": 10185047,
+    "load": 664,
+    "utilization_%": 88.53
+  },
+  {
+    "vehicle_id": 8,
+    "stops": [
+      58,
+      28,
+      17,
+      3,
+      30,
+      11,
+      24
+    ],
+    "distance": 10344335,
+    "load": 748,
+    "utilization_%": 99.73
+  },
+  {
+    "vehicle_id": 9,
+    "stops": [
+      58,
+      39,
+      20,
+      45,
+      12,
+      19
+    ],
+    "distance": 10261101,
+    "load": 659,
+    "utilization_%": 87.87
+  },
+  {
+    "vehicle_id": 10,
+    "stops": [
+      58,
+      5,
+      33,
+      25,
+      22,
+      55
+    ],
+    "distance": 10195065,
+    "load": 665,
+    "utilization_%": 88.67
+  }
+]

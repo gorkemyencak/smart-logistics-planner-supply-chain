@@ -189,7 +189,8 @@ class VRPsolver:
                 routing,
                 manager,
                 num_vehicles,
-                demands
+                demands,
+                cluster_df
             )
 
             return {
@@ -208,7 +209,8 @@ class VRPsolver:
             routing,
             manager,
             num_vehicles,
-            demands
+            demands,
+            cluster_df
     ):
         
         routes_data = []
@@ -243,12 +245,23 @@ class VRPsolver:
                 vehicles_in_use += 1
                 utilization = 100 * (route_load / self.vehicle_capacity)
 
+                # building geometry from route nodes
+                geometry = []
+
+                for node_idx in route:
+                    if node_idx >= len(cluster_df):
+                        continue
+
+                    row = cluster_df.iloc[node_idx]
+                    geometry.append((row['Latitude'], row['Longitude']))
+
                 routes_data.append({
                     'vehicle_id': vehicle_id,
                     'stops': route,
                     'distance': route_distance,
                     'load': route_load,
-                    'utilization_%': round(utilization, 2)
+                    'utilization_%': round(utilization, 2),
+                    'geometry': geometry
                 })
 
                 total_distance += route_distance
